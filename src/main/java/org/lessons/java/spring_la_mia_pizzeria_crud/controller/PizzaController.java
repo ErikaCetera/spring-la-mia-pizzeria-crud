@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -33,5 +34,12 @@ public class PizzaController {
         Pizza pizza = repository.findById(id).get();
         model.addAttribute("pizza", pizza);
        return "pizze/show";
+    }
+
+    @GetMapping("/search")
+    public String searchByName(@RequestParam(name = "name") String name, Model model) {
+        List<Pizza> pizze = repository.findByNameContainingAllIgnoreCase(name);
+        model.addAttribute("pizze", pizze);
+        return "pizze/index";
     }
 }
