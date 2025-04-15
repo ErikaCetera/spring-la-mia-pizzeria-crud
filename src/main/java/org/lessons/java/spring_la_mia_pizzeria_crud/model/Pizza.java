@@ -24,7 +24,7 @@ public class Pizza {
     private String name;
     @NotBlank(message = "must not be null, empty or blank")
     private String description;
-    @NotBlank(message = "must not be null, empty or blank")
+    
     private String image;
     @NotNull
     @Min(value = 0,  message = "the price cannot be negative")
