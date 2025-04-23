@@ -14,15 +14,17 @@
         <div th:insert="fragments/navbar :: navbar"></div>
         <div class="container text-center">
             <div class="my-4">
-                <h1>Scopri le nostre pizze</h1>
+                <h1>MENU'</h1>
+                <h2>Scopri le nostre pizze</h2>
             </div>
             <div class="d-flex justify-content-between my-5 ">
                 <form action="/pizze/search" method="get" class="d-flex align-items-center">
                     <input type="text" name="name" placeholder="cerca qui la tua pizza.." class="form-control">
                     <button type="submit" class="btn btn-primary">cerca</button>
                 </form>
-                <a th:href="@{/pizze/create}" class="btn btn-primary">Crea pizza</a>
+                <a th:href="@{/pizze/create}" class="btn btn-primary">Crea nuova pizza</a>
             </div>
+
             <div class="row" th:if="${pizze.size() > 0}">
                 <div class="col-lg-4 col-md-6 col-12 g-4 " th:each="pizza : ${pizze}">
                     <div class="card h-100 mx-auto" style="width: 18rem;">
@@ -31,7 +33,39 @@
                             <h4 th:text="${pizza.name}"></h4>
                             <p th:text="'Prezzo: ' + ${pizza.price} + '€'"></p>
                         </div>
-                        <a th:href="@{/pizze/{id}(id=${pizza.id})}" class="btn btn-success mx-5 my-3">Vedi Dettaglio</a>
+                        <div class="d-flex justify-content-around">
+                            <a th:href="@{/pizze/{id}(id=${pizza.id})}" class="btn btn-primary m-2  btn-sm">Dettagli</a>
+                            <a th:href="@{/pizze/edit/{id}(id=${pizza.id})}"
+                                class="btn btn-success m-2 btn-sm">Modifica</a>
+                            <button type="button" class="btn btn-danger m-2 btn-sm"  data-bs-toggle="modal"
+                                th:data-bs-target="'#delete-modal-' + ${pizza.id}">
+                                Elimina
+                            </button>
+                        </div>
+
+                        <div class="modal" tabindex="-1" th:id="'delete-modal-' + ${pizza.id}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Pizza [[${pizza.name}]]</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Sicuro di voler eliminare questa pizza dal menù?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Annulla</button>
+                                            <form th:action="@{/pizze/delete/{id}(id=${pizza.id})}" method="post">
+                                                <button type="submit" class="btn btn-danger">Elimina
+                                                definitivamente</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

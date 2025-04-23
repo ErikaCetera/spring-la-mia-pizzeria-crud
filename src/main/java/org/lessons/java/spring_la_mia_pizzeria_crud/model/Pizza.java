@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 @Table( name = "pizze")
 public class Pizza {
 
-   
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -46,6 +46,11 @@ public class Pizza {
     public BigDecimal getPrice() {
         return price;
     }
+
+    public void setId (Integer id){
+    this.id = id;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
