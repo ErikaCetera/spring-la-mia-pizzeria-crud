@@ -12,14 +12,14 @@
 <body>
     <main>
         <div th:insert="fragments/navbar :: navbar"></div>
-        <a th:href="@{/pizze}" class="m-5">torna alle pizze</a>
+        <div th:insert="fragments/go-back-button :: go-back"></div>
         <div class="container">
             <div class="my-5 text-center">
                 <h1>Crea una nuova pizza</h1>
             </div>
             <div class="row justify-content-center">
                 <div class="col-8">
-                    <form th:action="@{create}" method="post" id="pizza-form" th:object="${pizza}" >
+                    <form th:action="@{create}" method="post" id="pizza-form" th:object="${pizza}" class="mb-2">
                         <div class="mb-3">
                             <label class="form-label" for="name">Nome</label>
                             <input class="form-control " type="text" id="name" th:field="*{name}">
