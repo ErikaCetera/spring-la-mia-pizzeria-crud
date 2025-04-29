@@ -59,7 +59,7 @@ public class PizzaController {
     public String store(
         @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "create";
+            return "pizze/create";
         }
         repository.save(formPizza);
 
